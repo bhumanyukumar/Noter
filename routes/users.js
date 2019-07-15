@@ -5,7 +5,11 @@ const User = require("../DB/models/User");
 const passport = require("passport");
 const mailer = require("../utils/mailer");
 //GET Login Route
-router.get("/login", (req, res) => {
+router.get("/login",(req,res,next)=>{
+if(req.isAuthenticated())
+return res.redirect("/notes");
+next();
+},(req, res) => {
     res.render("./pages/login", { title: "Login", user: {} });
 })
 
@@ -28,7 +32,11 @@ router.post("/login", (req, res,next) => {
 })
 
 //GET Register Route
-router.get("/register", (req, res) => {
+router.get("/register",(req,res,next)=>{
+    if(req.isAuthenticated())
+    return res.redirect("/notes");
+    next();
+    }, (req, res) => {
     res.render("./pages/register", { title: "Register", user: {} });
 })
 
