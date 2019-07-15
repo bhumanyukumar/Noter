@@ -1,0 +1,8 @@
+<% layout("./layout/master") %>
+<div class="jumbotron text-center">
+    <h1 class="display-3">NOTER</h1>
+    <p class="lead">Add your notes online</p>
+    <%if(!currentUser){%>
+    <a href="/users/register" class="btn btn-dark btn-lg">Join Now</a>
+    <%}%>
+</div>
