@@ -67,10 +67,17 @@ router.post("/register", (req, res) => {
                     bcrypt.hash(newUser.password, salt, (e, hash) => {
                         newUser.password = hash;
                         newUser.save().then(user => {
-                            mailer(user);
+                            const subject = `Welcome to Noter`;
+                            const msg = `Hello ${user.name}, Welcome to Noter.
+                            This email is only for testing purpose only.
+                            regards,
+                            Bhumanyu Kumar`;
+                            //Send the email
+                            mailer(user.email,subject,msg);
                             req.flash("success_msg", "Registration Successfull! You can login now");
                             res.redirect("/users/login");
                         }).catch(promiseError => {
+                            console.log(promiseError);
                             req.flash("error_msg", "Error while creating account!");
                             res.redirect("/users/register");
                         })

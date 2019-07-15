@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-module.exports = (user)=>{
+module.exports = (email,subject,message)=>{
     const transport = {
         service:"gmail",
         auth:{
@@ -10,14 +10,11 @@ module.exports = (user)=>{
     const smtpTransport = nodemailer.createTransport(transport);
     const options = {
         from:"Noter <notermail86@gmail.com>",
-        to:user.email,
-        subject:`Welcome to Noter`,
-        text:`Hello ${user.name}, Welcome to Noter.
-        This email is only for testing purpose only.
-        regards,
-        Bhumanyu Kumar`
+        to:email,
+        subject:subject,
+        text:message
     }
     smtpTransport.sendMail(options,(err,info)=>{
-        err?console.log("Error is ",err):console.log("Info is ",info);
+        err?console.log("Error is while sending email ",err):console.log("Info is ",info);
     })
 }
